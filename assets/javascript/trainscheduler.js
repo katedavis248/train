@@ -51,3 +51,70 @@ $("#add-train").on("click", function (event) {
     $("#firstTrainInput").val("");
     $("#freqInput").val("");
 });//closes .onClick
+
+database.ref().on("child_added", function (childSnapshot) {
+    var cs = childSnapshot.val()
+    console.log(cs.name);
+    console.log(cs.destination);
+    console.log(cs.firstTrain);
+    console.log(cs.nextArrival);
+    console.log(cs.minutesAway);
+
+
+
+    function recalculateVariables() {
+        var timeConvert = moment(cs.firstTrain, "HH:mm:ss").subtract(1, "years");
+        var timeDiff = moment().diff(moment(timeConvert), "minutes");
+        var remainder = timeDiff % cs.frequency;
+        minutesLeft = cs.frequency - remainder;
+        var nextTrain = moment().add(minutesLeft, "minutes");
+        console.log(moment(nextTrain).format("X"));
+        updatedNextArrival = moment(nextTrain).format("HH:mm");
+        console.log(updatedNextArrival);
+        newMinutesAway = moment(nextTrain).diff(moment(), "minutes")
+        console.log(moment(nextTrain).diff(moment(), "minutes"))
+        console.log(newMinutesAway);
+
+    };
+
+
+    $("#nameDisplay").append("<div class='nameAdd'>" + cs.name);
+    $("#destDisplay").append("<div class='destAdd'>" + cs.destination);
+    $("#freqDisplay").append("<div class='freqAdd'>" + cs.frequency);
+    if (moment(currentTime).format("HH:mm") <= moment(cs.firstTrain).format("HH:mm")) {
+        recalculateVariables();
+        $("#arrivalDisplay").append("<div class='arrivalAdd'>" + updatedNextArrival);
+        $("#minDisplay").append("<div class='minAdd'>" + newMinutesAway);
+        console.log("Trains have Stopped Running");
+    }
+    else if (moment().format("HH:mm") >= cs.nextArrival) {
+        recalculateVariables();
+        $("#arrivalDisplay").append("<div class='arrivalAdd'>" + updatedNextArrival);
+        $("#minDisplay").append("<div class='minAdd'>" + newMinutesAway);
+    } else {
+        $("#arrivalDisplay").append("<div class='arrivalAdd'>" + cs.nextArrival);
+        $("#minDisplay").append("<div class='minAdd'>" + cs.minutesAway);
+    }
+
+},
+    function (errorObject) {
+        console.log("Errors handled: " + errorObject.code);
+    });
+
+function calculateVariables() {
+    var timeConvert = moment(firstTrain, "HH:mm").subtract(1, "years");
+    var timeDiff = moment().diff(moment(timeConvert), "minutes");
+    var remainder = timeDiff % frequency;
+    minutesLeft = frequency - remainder;
+    var nextTrain = moment().add(minutesLeft, "minutes");
+    console.log(moment(nextTrain).format("X"));
+    nextArrival = moment(nextTrain).format("HH:mm");
+
+    console.log(moment(nextTrain).diff(moment(), "minutes"))
+    minutesAway = moment(nextTrain).diff(moment(), "minutes")
+    console.log(minutesAway);
+
+};
+
+
+
