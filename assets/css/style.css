@@ -16,3 +16,13 @@ header {
     flex-direction: column;
     height: 125px;
 }
+
+.scheduleWrapper {
+    min-height: 500px;
+    border: medium solid seagreen;
+}
+.inputWrapper {
+    min-height: 450px;
+    border: medium solid seagreen;
+
+}
