@@ -1,0 +1,18 @@
+#clock {
+    margin: auto;
+    text-align: center;
+    color: black;
+}
+
+header {
+    background-color: grey;
+    height: 125px;
+}
+.headertext {
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 125px;
+}
