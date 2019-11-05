@@ -6,3 +6,23 @@ var config = {
     storageBucket: "trainscheduler-9a283.appspot.com",
     messagingSenderId: "186370673105"
 };
+
+var name = "";
+var destination = "";
+var firstTrain = "";
+var frequency = "";
+var nextArrival = "";
+var minutesAway = "";
+var updatedNextArrival = "";
+var newMinutesAway = "";
+var currentTime = moment();
+
+
+function clock() {
+    $("#clock").text(moment().format('LL'));
+    $("#clock").append(" - ");
+    $("#clock").append(moment().format('HH:mm:ss'));
+    setTimeout("clock()", 1000);
+
+};
+clock();
