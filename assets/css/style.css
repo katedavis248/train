@@ -26,3 +26,17 @@ header {
     border: medium solid seagreen;
 
 }
+
+.scheduleText {
+    color: darkgray;
+}
+
+.nameHeading {
+    margin-left: 18px;
+}
+
+#inputForm {
+    width: 1080px;
+    margin: auto;
+
+}
